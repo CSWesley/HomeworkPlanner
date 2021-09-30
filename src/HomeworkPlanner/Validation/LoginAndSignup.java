@@ -2,6 +2,7 @@ package HomeworkPlanner.Validation;
 
 import HomeworkPlanner.Utils.GhostText;
 import HomeworkPlanner.Validation.SignupUtils.CreateAccount;
+import HomeworkPlanner.Validation.SignupUtils.SendConfirmation;
 
 import javax.swing.*;
 
@@ -42,10 +43,20 @@ public class LoginAndSignup {
                 boolean exists = createAccount.checkIfExists(createUsername.getText(), setEmail.getText());
 
                 if (exists) {
-                    // Show main page for their account and insert account to SQL.
-
-                } else if (!exists) {
                     JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "An account already exists with this username or email!", "Error", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+                    // Email sending
+                    if (!setEmail.getText().contains("@") || createUsername.getText().isEmpty() || createPassword.getText().isEmpty() || confirmPassword.getText().isEmpty() && createPassword.getText().equals(confirmPassword.getText())) {
+                        JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "One or more fields are filled out incorrectly!", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        SendConfirmation sendConfirmation = new SendConfirmation();
+                        sendConfirmation.send(setEmail.getText());
+                        String code = sendConfirmation.getCode();
+
+
+                        insertCode(loginAndSignupFrame, setEmail, code);
+                    }
                 }
             }
         });
@@ -85,5 +96,24 @@ public class LoginAndSignup {
 
         // Add the signup and login tabbed pane to the frame.
         loginAndSignupFrame.getContentPane().add(tabbedPane);
+    }
+
+    int tries = 0;
+
+    private void insertCode(JFrame loginAndSignupFrame, JTextField setEmail, String code) {
+        String inputCode = JOptionPane.showInputDialog(loginAndSignupFrame.getContentPane(), "<html>Enter the activation code sent to <b>" + setEmail.getText() + "</b>. <br/>If you didn't get the email, just enter 9999.</html>", "Enter Code", JOptionPane.QUESTION_MESSAGE);
+
+        if (!code.equals(inputCode)) {
+            JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "Code is incorrect! Please try again.");
+            tries++;
+            if (tries < 3) {
+                insertCode(loginAndSignupFrame, setEmail, code);
+            } else {
+                JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "You have reached your max amount of tries! Please re-enter your information to repeat the process!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Insert into SQL and create account
+
+        }
     }
 }

@@ -27,7 +27,7 @@ public class CreateAccount {
 
             for (String envName : env.keySet()) {
                 if (envName.equalsIgnoreCase("SQLP")) {
-                    pass = env.get(envName).replaceAll("'", "");
+                    pass = env.get(envName).replaceAll("\"", "");
                 }
             }
 
@@ -45,8 +45,6 @@ public class CreateAccount {
             e.printStackTrace();
         }
 
-
-        // For now:
-        return false;
+        return true;
     }
 }
