@@ -1,10 +1,16 @@
 package HomeworkPlanner.Validation;
 
 import HomeworkPlanner.Utils.GhostText;
+import HomeworkPlanner.Validation.GenUtils.SystemEnv;
 import HomeworkPlanner.Validation.SignupUtils.CreateAccount;
 import HomeworkPlanner.Validation.SignupUtils.SendConfirmation;
 
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Map;
 
 /**
  * This class handles the logging in and signing up of the user. It also adds the components to the frame.
@@ -54,8 +60,11 @@ public class LoginAndSignup {
                         sendConfirmation.send(setEmail.getText());
                         String code = sendConfirmation.getCode();
 
-
-                        insertCode(loginAndSignupFrame, setEmail, code);
+                        try {
+                            createAccount(loginAndSignupFrame, setEmail, code, createUsername.getText(), createPassword.getText(), setEmail.getText());
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
             }
@@ -100,20 +109,38 @@ public class LoginAndSignup {
 
     int tries = 0;
 
-    private void insertCode(JFrame loginAndSignupFrame, JTextField setEmail, String code) {
+    private void createAccount(JFrame loginAndSignupFrame, JTextField setEmail, String code, String username, String password, String email) throws SQLException {
         String inputCode = JOptionPane.showInputDialog(loginAndSignupFrame.getContentPane(), "<html>Enter the activation code sent to <b>" + setEmail.getText() + "</b>. <br/>If you didn't get the email, just enter 9999.</html>", "Enter Code", JOptionPane.QUESTION_MESSAGE);
 
         if (!code.equals(inputCode)) {
             JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "Code is incorrect! Please try again.");
             tries++;
             if (tries < 3) {
-                insertCode(loginAndSignupFrame, setEmail, code);
+                createAccount(loginAndSignupFrame, setEmail, code, username, password, email);
             } else {
                 JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "You have reached your max amount of tries! Please re-enter your information to repeat the process!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             // Insert into SQL and create account
 
+            String pass = "";
+            Map<String, String> env = System.getenv();
+
+            for (String envName : env.keySet()) {
+                if (envName.equalsIgnoreCase("SQLP")) {
+                    pass = env.get(envName);
+                }
+            }
+
+            Connection connection = DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3440249", "sql3440249", pass);
+            Statement statement = connection.createStatement();
+
+            statement.execute("INSERT INTO accounts (username, password, email)" +
+                    "VALUES ('" + username + "', '" + password + "', '" + email + "');");
+
+            connection.close();
+
+            JOptionPane.showMessageDialog(null, "Account has been created! Please go login now.", "Success!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
