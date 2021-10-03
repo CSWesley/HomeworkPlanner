@@ -1,7 +1,6 @@
 package HomeworkPlanner.Validation;
 
 import HomeworkPlanner.Utils.GhostText;
-import HomeworkPlanner.Validation.GenUtils.SystemEnv;
 import HomeworkPlanner.Validation.SignupUtils.CreateAccount;
 import HomeworkPlanner.Validation.SignupUtils.SendConfirmation;
 
