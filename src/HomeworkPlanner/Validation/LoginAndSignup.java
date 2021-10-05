@@ -1,6 +1,7 @@
 package HomeworkPlanner.Validation;
 
 import HomeworkPlanner.Utils.GhostText;
+import HomeworkPlanner.Validation.LoginUtils.AccountLogin;
 import HomeworkPlanner.Validation.SignupUtils.CreateAccount;
 import HomeworkPlanner.Validation.SignupUtils.SendConfirmation;
 
@@ -44,15 +45,15 @@ public class LoginAndSignup {
         confirmSignup.addActionListener(e -> {
             if (e.getSource() == confirmSignup) {
                 // Send email to confirm.
-                CreateAccount createAccount = new CreateAccount();
-                boolean exists = createAccount.checkIfExists(createUsername.getText(), setEmail.getText());
+                CreateAccount ca = new CreateAccount();
+                boolean exists = ca.checkIfExists(createUsername.getText(), setEmail.getText());
 
                 if (exists) {
                     JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "An account already exists with this username or email!", "Error", JOptionPane.ERROR_MESSAGE);
 
                 } else {
                     // Email sending
-                    if (!setEmail.getText().contains("@") || createUsername.getText().isEmpty() || createPassword.getText().isEmpty() || confirmPassword.getText().isEmpty() && createPassword.getText().equals(confirmPassword.getText())) {
+                    if (!setEmail.getText().contains("@") || createUsername.getText().isEmpty() || createPassword.getText().isEmpty() || confirmPassword.getText().isEmpty() || !createPassword.getText().equals(confirmPassword.getText())) {
                         JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "One or more fields are filled out incorrectly!", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         SendConfirmation sendConfirmation = new SendConfirmation();
@@ -60,7 +61,7 @@ public class LoginAndSignup {
                         String code = sendConfirmation.getCode();
 
                         try {
-                            createAccount(loginAndSignupFrame, setEmail, code, createUsername.getText(), createPassword.getText(), setEmail.getText());
+                            ca.createAccount(loginAndSignupFrame, setEmail, code, createUsername.getText(), createPassword.getText(), setEmail.getText(), tabbedPane);
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
@@ -90,6 +91,16 @@ public class LoginAndSignup {
         confirmLogin.addActionListener(e -> {
             if (e.getSource() == confirmLogin) {
                 // Confirm login and show home page.
+                // Check if password matches username. If yes, continue to app. If not, say "password does not match" or something.
+
+                AccountLogin accountLogin = new AccountLogin();
+                boolean matches = accountLogin.matches(enterUsername.getText(), enterPass.getText());
+                if (matches) {
+                    // Continue to main application.
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "The username and password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         login.add(confirmLogin);
@@ -104,52 +115,5 @@ public class LoginAndSignup {
 
         // Add the signup and login tabbed pane to the frame.
         loginAndSignupFrame.getContentPane().add(tabbedPane);
-    }
-
-    int tries = 0;
-
-    private void createAccount(JFrame loginAndSignupFrame, JTextField setEmail, String code, String username, String password, String email) throws SQLException {
-        String inputCode = JOptionPane.showInputDialog(loginAndSignupFrame.getContentPane(), "<html>Enter the activation code sent to <b>" + setEmail.getText() + "</b>. <br/>If you didn't get the email, just enter 9999.</html>", "Enter Code", JOptionPane.QUESTION_MESSAGE);
-
-        if (!code.equals(inputCode)) {
-            JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "Code is incorrect! Please try again.");
-            tries++;
-            if (tries < 3) {
-                createAccount(loginAndSignupFrame, setEmail, code, username, password, email);
-            } else {
-                JOptionPane.showMessageDialog(loginAndSignupFrame.getContentPane(), "You have reached your max amount of tries! Please re-enter your information to repeat the process!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            // Insert into SQL and create account
-
-            String pass = "";
-            Map<String, String> env = System.getenv();
-
-            for (String envName : env.keySet()) {
-                if (envName.equalsIgnoreCase("SQLP")) {
-                    pass = env.get(envName);
-                }
-            }
-
-            Connection connection = DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3440249", "sql3440249", pass);
-            Statement statement = connection.createStatement();
-
-            statement.execute("INSERT INTO accounts (username, password, email)" +
-                    "VALUES ('" + username + "', '" + password + "', '" + email + "');");
-
-            // Create table for each user in which each one will contain columns for: [assignment title, due date, teacher, class, link, estimate time required].
-            statement.execute("CREATE TABLE " + username + " (" +
-                        "title VARCHAR(256), " +
-                        "dueDate VARCHAR(256), " +
-                        "teacher VARCHAR(256), " +
-                        "class VARCHAR(256), " +
-                        "link VARCHAR(256), " +
-                        "eta VARCHAR(256) " +
-                        ");");
-
-            connection.close();
-
-            JOptionPane.showMessageDialog(null, "Account has been created! Please go login now.", "Success!", JOptionPane.INFORMATION_MESSAGE);
-        }
     }
 }
