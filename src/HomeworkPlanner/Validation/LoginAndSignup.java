@@ -137,6 +137,10 @@ public class LoginAndSignup {
             statement.execute("INSERT INTO accounts (username, password, email)" +
                     "VALUES ('" + username + "', '" + password + "', '" + email + "');");
 
+            // Create table for each user in which each one will contain columns for: [assignment title, due date, teacher, class, link, estimate time required].
+            statement.execute("CREATE TABLE " + username + " (" +
+                    "title, dueDate, teacher, class, link, eta);");
+
             connection.close();
 
             JOptionPane.showMessageDialog(null, "Account has been created! Please go login now.", "Success!", JOptionPane.INFORMATION_MESSAGE);

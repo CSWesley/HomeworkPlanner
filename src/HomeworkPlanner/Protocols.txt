@@ -10,3 +10,11 @@ Notes ->
         b) To get notifications on upcoming assignments.
         c) POSSIBLY: Change email from one to another.
     3. Save username and password (file in computer?)
+
+
+Other ->
+    How are you going to go about saving data? Create a table for each user? And that table has what?
+
+    Here:
+        Create table for each user in which each one will contain columns for: [assignment title, due date, teacher, class, link, estimate time required].
+        Manipulate data in these ways: [create, view, delete, edit].
