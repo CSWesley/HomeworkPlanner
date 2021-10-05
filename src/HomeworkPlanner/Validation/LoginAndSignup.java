@@ -139,7 +139,13 @@ public class LoginAndSignup {
 
             // Create table for each user in which each one will contain columns for: [assignment title, due date, teacher, class, link, estimate time required].
             statement.execute("CREATE TABLE " + username + " (" +
-                    "title, dueDate, teacher, class, link, eta);");
+                        "title VARCHAR(256), " +
+                        "dueDate VARCHAR(256), " +
+                        "teacher VARCHAR(256), " +
+                        "class VARCHAR(256), " +
+                        "link VARCHAR(256), " +
+                        "eta VARCHAR(256) " +
+                        ");");
 
             connection.close();
 

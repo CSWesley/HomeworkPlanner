@@ -1,8 +1,5 @@
 package HomeworkPlanner.Validation.SignupUtils;
 
-import HomeworkPlanner.Validation.GenUtils.SystemEnv;
-
-import javax.swing.*;
 import java.sql.*;
 import java.util.Map;
 
