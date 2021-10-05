@@ -15,13 +15,13 @@ public class MainFrame {
     private Font subTitleFont = new Font("Arial", Font.PLAIN, 20);
     private LoginAndSignup loginAndSignup = new LoginAndSignup();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         MainFrame mainFrame = new MainFrame();
 
         mainFrame.openLoginPage();
     }
 
-    private void openLoginPage() {
+    private void openLoginPage() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         JFrame loginAndSignupFrame = new JFrame("Login and Signup");
         loginAndSignupFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginAndSignupFrame.setResizable(false);

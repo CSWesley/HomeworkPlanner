@@ -1,5 +1,6 @@
 package HomeworkPlanner.Validation;
 
+import HomeworkPlanner.MainApplication.Application;
 import HomeworkPlanner.Utils.GhostText;
 import HomeworkPlanner.Validation.LoginUtils.AccountLogin;
 import HomeworkPlanner.Validation.SignupUtils.CreateAccount;
@@ -17,6 +18,8 @@ import java.util.Map;
  */
 
 public class LoginAndSignup {
+
+    public static JTextField enterUsername;
 
     public void loginAndSignup(JTabbedPane tabbedPane, JFrame loginAndSignupFrame) {
         // Tabbed pane for login and signup
@@ -79,7 +82,7 @@ public class LoginAndSignup {
 
         JPanel login = new JPanel();
 
-        JTextField enterUsername = new JTextField("", 13);
+        enterUsername = new JTextField("", 13);
         GhostText ghostText5 = new GhostText(enterUsername, "Username...");
         login.add(enterUsername);
 
@@ -97,7 +100,12 @@ public class LoginAndSignup {
                 boolean matches = accountLogin.matches(enterUsername.getText(), enterPass.getText());
                 if (matches) {
                     // Continue to main application.
-
+                    Application application = new Application();
+                    try {
+                        application.openHomeworkPlanner();
+                    } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "The username and password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
