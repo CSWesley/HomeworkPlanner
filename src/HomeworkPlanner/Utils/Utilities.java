@@ -4,5 +4,5 @@ import HomeworkPlanner.Validation.LoginAndSignup;
 
 public class Utilities {
 
-    public static String username = LoginAndSignup.enterUsername.getText();
+    // public static String username = LoginAndSignup.enterUsername.getText();
 }

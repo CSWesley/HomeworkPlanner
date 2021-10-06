@@ -50,7 +50,8 @@ public class CreateAccount {
 
     int tries = 0;
 
-    public void createAccount(JFrame loginAndSignupFrame, JTextField setEmail, String code, String username, String password, String email, JTabbedPane tabbedPane) throws SQLException {
+    public void createAccount(JFrame loginAndSignupFrame, JTextField setEmail, String code, String username, String password, String email, JTabbedPane tabbedPane) throws SQLException
+    {
         String inputCode = JOptionPane.showInputDialog(loginAndSignupFrame.getContentPane(), "<html>Enter the activation code sent to <b>" + setEmail.getText() + "</b>. <br/>If you didn't get the email, just enter 9999.</html>", "Enter Code", JOptionPane.QUESTION_MESSAGE);
 
         if (!code.equals(inputCode)) {
@@ -86,7 +87,8 @@ public class CreateAccount {
                     "teacher VARCHAR(256), " +
                     "class VARCHAR(256), " +
                     "link VARCHAR(256), " +
-                    "eta VARCHAR(256) " +
+                    "eta VARCHAR(256), " +
+                    "status TINYINT" +
                     ");");
 
             connection.close();

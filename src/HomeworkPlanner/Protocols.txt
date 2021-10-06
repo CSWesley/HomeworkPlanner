@@ -3,6 +3,8 @@ Protocols ->
 
 
 Notes ->
+    I. Before showing main application, show "loading screen" with the logo.
+
     1. Make settings options to:
         a) Reminder emails for assignments.
     2. Emails are ONLY used for 2-3 things:
@@ -16,5 +18,6 @@ Other ->
     How are you going to go about saving data? Create a table for each user? And that table has what?
 
     Here:
-        Create table for each user in which each one will contain columns for: [assignment title, due date, teacher, class, link, estimate time required].
+        Create table for each user in which each one will contain columns for: [assignment title, due date, teacher, subject, link, estimate time required].
         Manipulate data in these ways: [create, view, delete, edit].
+
