@@ -1,31 +1,33 @@
 package HomeworkPlanner.MainApplication;
 
 import HomeworkPlanner.Loading.LoadingScreen;
-import HomeworkPlanner.MainApplication.ActionListeners.ActionListeners;
+import HomeworkPlanner.MainApplication.ActionListeners.SubjectListener;
 import HomeworkPlanner.Utils.Utilities;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Application {
 
-    // TODO: Uncomment thing in Utilities class.
+    public void openMainApplication() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, InterruptedException {
+        // Before starting main application, add a "loading" thing where it shows the logo.
+        LoadingScreen ls = new LoadingScreen();
+        ls.loadScreen();
 
-    public void openHomeworkPlanner() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        JFrame homeworkPlanner = new JFrame("Homework Planner - " + "Uncomment thing in Utilities class.");
+        // Keeps loading screen up then disposes
+        Thread.sleep(3000);
+        ls.frame.dispose();
+
+        // Continues to main application
+        Application app = new Application();
+        app.openHomeworkPlanner();
+    }
+
+    public void openHomeworkPlanner() {
+        JFrame homeworkPlanner = new JFrame("Homework Planner - " + Utilities.username);
         homeworkPlanner.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         homeworkPlanner.setResizable(false);
         Container c = homeworkPlanner.getContentPane();
@@ -77,7 +79,7 @@ public class Application {
         c.add(sep);
 
         // Action listeners.
-        ActionListeners als = new ActionListeners();
+        SubjectListener als = new SubjectListener();
 
         // Create label:
         JLabel creationSide = new JLabel("Create");
@@ -163,20 +165,4 @@ public class Application {
         c.add(copyright);
     }
 
-    // Temporary main method for testing the above frame.
-    public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, InterruptedException {
-        System.out.println("TODO: Uncomment thing in Utilities class.");
-
-        // Before starting main application, add a "loading" thing where it shows the logo.
-        LoadingScreen ls = new LoadingScreen();
-        ls.loadScreen();
-
-        // Keeps loading screen up then disposes
-        Thread.sleep(3000);
-        ls.frame.dispose();
-
-        // Continues to main application
-        Application app = new Application();
-        app.openHomeworkPlanner();
-    }
 }

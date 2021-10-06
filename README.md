@@ -39,6 +39,4 @@ If you have any questions, please contact me on Discord or by email.
 Discord: Wesley_#1234
 Email: Booked1234512@gmail.com
 
-Note that some of this code will be reused from my previous project, although there will be several large aspects being redesigned. Previous project: https://github.com/Booked61/HomeworkPlanner
-
 I will add more options and information at a future time.

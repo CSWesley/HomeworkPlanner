@@ -7,11 +7,7 @@ import HomeworkPlanner.Validation.SignupUtils.CreateAccount;
 import HomeworkPlanner.Validation.SignupUtils.SendConfirmation;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Map;
 
 /**
  * This class handles the logging in and signing up of the user. It also adds the components to the frame.
@@ -100,10 +96,11 @@ public class LoginAndSignup {
                 boolean matches = accountLogin.matches(enterUsername.getText(), enterPass.getText());
                 if (matches) {
                     // Continue to main application.
-                    Application application = new Application();
                     try {
-                        application.openHomeworkPlanner();
-                    } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                        loginAndSignupFrame.dispose();
+                        Application application = new Application();
+                        application.openMainApplication();
+                    } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException | InterruptedException ex) {
                         ex.printStackTrace();
                     }
                 } else {
