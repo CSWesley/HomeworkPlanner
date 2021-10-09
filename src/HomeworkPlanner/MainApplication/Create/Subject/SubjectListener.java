@@ -1,4 +1,4 @@
-package HomeworkPlanner.MainApplication.Subject;
+package HomeworkPlanner.MainApplication.Create.Subject;
 
 import HomeworkPlanner.Utils.Utilities;
 

@@ -1,7 +1,8 @@
 package HomeworkPlanner.MainApplication;
 
 import HomeworkPlanner.Loading.LoadingScreen;
-import HomeworkPlanner.MainApplication.Subject.SubjectListener;
+import HomeworkPlanner.MainApplication.Create.Subject.SubjectListener;
+import HomeworkPlanner.MainApplication.View.Subject.ViewSubjectListener;
 import HomeworkPlanner.Utils.Utilities;
 
 import javax.swing.*;
@@ -80,6 +81,7 @@ public class Application {
 
         // Action listeners.
         SubjectListener als = new SubjectListener();
+        ViewSubjectListener vsl = new ViewSubjectListener();
 
         // Create label:
         JLabel creationSide = new JLabel("Create");
@@ -112,6 +114,7 @@ public class Application {
         JButton viewSubjects = new JButton("View Subjects");
         viewSubjects.setSize(150, 40);
         viewSubjects.setLocation(552, 275);
+        viewSubjects.addActionListener(vsl.createSubjectListener(viewSubjects));
         viewSubjects.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         c.add(viewSubjects);
 
