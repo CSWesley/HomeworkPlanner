@@ -1,7 +1,7 @@
 package HomeworkPlanner.MainApplication;
 
 import HomeworkPlanner.Loading.LoadingScreen;
-import HomeworkPlanner.MainApplication.ActionListeners.SubjectListener;
+import HomeworkPlanner.MainApplication.Subject.SubjectListener;
 import HomeworkPlanner.Utils.Utilities;
 
 import javax.swing.*;

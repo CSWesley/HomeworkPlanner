@@ -1,7 +1,6 @@
-package HomeworkPlanner.MainApplication.ActionListeners;
+package HomeworkPlanner.MainApplication.Subject;
 
 import HomeworkPlanner.Utils.Utilities;
-import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,37 +30,20 @@ public class SubjectListener {
                 createSubjectFrame(al -> {
                     if (al.getSource() == this.saveButton) {
                         // Step 2: Connect to SQL and enter info into database.
-                        String pass = "";
-                        Map<String, String> env = System.getenv();
-
-                        for (String envName : env.keySet()) {
-                            if (envName.equalsIgnoreCase("SQLP")) {
-                                pass = env.get(envName);
-                            }
-                        }
 
                         try {
-                            Connection connection = DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3440249", "sql3440249", pass);
-                            Statement statement = connection.createStatement();
+                            boolean exists = doesExist();
 
-                            String username = Utilities.username;
+                            if (exists) {
+                                JOptionPane.showMessageDialog(null, "<html>The class: <b>" + this.enterSubject.getText() + "</b> could not be created because it already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                // Inserts given name into table.
+                                insertClass();
 
-                            // First, check if the class already exists. If it does, throw error. If not, execute insert statement.
-                            ResultSet rs = statement.executeQuery("SELECT * FROM " + username + ";");
-
-                            while (rs.next()) {
-                                if (rs.getString("class").equals(this.enterSubject.getText())) {
-                                    System.out.println("Equals");
-                                }
+                                this.newSubjectFrame.setVisible(false);
+                                JOptionPane.showMessageDialog(null, "<html>The class: <b>" + this.enterSubject.getText() + "</b> has been created!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                this.newSubjectFrame.dispose();
                             }
-
-                            statement.execute("INSERT INTO " + username + " (class)" +
-                                    "VALUES ('" + this.enterSubject.getText() + "');");
-
-                            connection.close();
-
-                            this.newSubjectFrame.dispose();
-                            JOptionPane.showMessageDialog(null, "<html>Subject: <b>" + enterSubject.getText() + "</b> has been created!</html>");
 
                         } catch (SQLException ex) {
                             ex.printStackTrace();
@@ -70,6 +52,50 @@ public class SubjectListener {
                 });
             }
         };
+    }
+
+    private void insertClass() throws SQLException {
+        String pass = "";
+        Map<String, String> env = System.getenv();
+
+        for (String envName : env.keySet()) {
+            if (envName.equalsIgnoreCase("SQLP")) {
+                pass = env.get(envName);
+            }
+        }
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3440249", "sql3440249", pass);
+        Statement statement = connection.createStatement();
+
+        statement.execute("INSERT INTO " + Utilities.username + " (class)" +
+                "VALUES ('" + this.enterSubject.getText() + "');");
+
+        connection.close();
+    }
+
+    private boolean doesExist() throws SQLException {
+        String pass = "";
+        Map<String, String> env = System.getenv();
+
+        for (String envName : env.keySet()) {
+            if (envName.equalsIgnoreCase("SQLP")) {
+                pass = env.get(envName);
+            }
+        }
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3440249", "sql3440249", pass);
+        Statement statement = connection.createStatement();
+
+        String username = Utilities.username;
+
+        // First, check if the class already exists. If it does, throw error. If not, execute insert statement.
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + username + " WHERE class='" + this.enterSubject.getText() + "';");
+
+        boolean toReturn = rs.next();
+
+        connection.close();
+
+        return toReturn;
     }
 
     private void createSubjectFrame(ActionListener actionListener) {
