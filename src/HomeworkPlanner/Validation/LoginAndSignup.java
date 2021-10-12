@@ -62,6 +62,7 @@ public class LoginAndSignup {
                         try {
                             ca.createAccount(loginAndSignupFrame, setEmail, code, createUsername.getText(), createPassword.getText(), setEmail.getText(), tabbedPane);
                         } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "There was an error. Maybe you already have an account? Maybe that username is taken.", "Error", JOptionPane.ERROR_MESSAGE);
                             ex.printStackTrace();
                         }
                     }
