@@ -42,7 +42,7 @@ public class ViewSubjectListener {
 
         for (int i = 0; i < classes.size(); i++) {
             JButton subjectName = new JButton(ar.get(i));
-            subjectName.addActionListener(classActionListener(subjectName));
+            subjectName.addActionListener(classActionListener(subjectName, viewFrame));
             c.add(subjectName);
         }
 
@@ -51,7 +51,7 @@ public class ViewSubjectListener {
         viewFrame.setVisible(true);
     }
 
-    private ActionListener classActionListener(JButton button) {
+    private ActionListener classActionListener(JButton button, JFrame subjectsFrame) {
 
         return e -> {
             if (e.getSource() == button) {
@@ -61,6 +61,21 @@ public class ViewSubjectListener {
                 // 2. Number of assignments in this subject.
                 // 3. Delete subject.
                 // 4. View deeper/more. (This will display new window with each individual assignment [clickable]. Perhaps just used viewAssignments [when you make it])
+
+                JFrame frame = new JFrame("");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                Container c = frame.getContentPane();
+                c.setLayout(null);
+
+                // Dispose of the subjects frame.
+                subjectsFrame.dispose();
+
+                // Display information about selected subject.
+                
+
+                frame.setSize(538, 263);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
         };
     }
