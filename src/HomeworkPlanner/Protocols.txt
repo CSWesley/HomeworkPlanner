@@ -12,6 +12,7 @@ Notes ->
         b) To get notifications on upcoming assignments.
         c) POSSIBLY: Change email from one to another.
     3. Save username and password (file in computer?)
+    4. Remove 'status' thing. Remove 'view old assignments' option.
 
 
 Other ->
