@@ -36,7 +36,7 @@ Answer
 ## Other
 
 If you have any questions, please contact me on Discord or by email. 
-Discord: Wesley_#1234
+Discord: Wesley_#0145
 Email: Booked1234512@gmail.com
 
 I will add more options and information at a future time.
