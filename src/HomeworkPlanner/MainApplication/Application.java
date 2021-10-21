@@ -1,6 +1,7 @@
 package HomeworkPlanner.MainApplication;
 
 import HomeworkPlanner.Loading.LoadingScreen;
+import HomeworkPlanner.MainApplication.Create.Assignment.AssignmentListener;
 import HomeworkPlanner.MainApplication.Create.Subject.SubjectListener;
 import HomeworkPlanner.MainApplication.View.Subject.ViewSubjectListener;
 import HomeworkPlanner.Utils.Utilities;
@@ -83,6 +84,8 @@ public class Application {
         SubjectListener als = new SubjectListener();
         ViewSubjectListener vsl = new ViewSubjectListener();
 
+        AssignmentListener asl = new AssignmentListener();
+
         // Create label:
         JLabel creationSide = new JLabel("Create");
         creationSide.setSize(100, 20);
@@ -102,6 +105,7 @@ public class Application {
         createNewAssignment.setSize(180, 40);
         createNewAssignment.setLocation(86, 275);
         createNewAssignment.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        createNewAssignment.addActionListener(asl.createAssignmentListener(createNewAssignment));
         c.add(createNewAssignment);
 
         // View options:
