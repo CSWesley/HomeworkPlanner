@@ -1,6 +1,5 @@
 package HomeworkPlanner.MainApplication;
 
-import HomeworkPlanner.Loading.LoadingScreen;
 import HomeworkPlanner.MainApplication.Create.Assignment.AssignmentListener;
 import HomeworkPlanner.MainApplication.Create.Subject.SubjectListener;
 import HomeworkPlanner.MainApplication.View.Subject.ViewSubjectListener;
@@ -15,15 +14,7 @@ import java.util.Objects;
 public class Application {
 
     public void openMainApplication() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, InterruptedException {
-        // Before starting main application, add a "loading" thing where it shows the logo.
-        LoadingScreen ls = new LoadingScreen();
-        ls.loadScreen();
-
-        // Keeps loading screen up then disposes
-        Thread.sleep(3000);
-        ls.frame.dispose();
-
-        // Continues to main application
+        // Main application
         Application app = new Application();
         app.openHomeworkPlanner();
     }

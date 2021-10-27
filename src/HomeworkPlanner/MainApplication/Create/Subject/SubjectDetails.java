@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class SubjectDetails {
 
-    public Set<String> getSubjects() throws SQLException {
+    public HashSet<String> getSubjects() throws SQLException {
         String pass = "";
         Map<String, String> env = System.getenv();
 
@@ -24,7 +24,7 @@ public class SubjectDetails {
 
         ResultSet rs = statement.executeQuery("SELECT * FROM " + Utilities.username);
 
-        Set<String> classes = new HashSet<>();
+        HashSet<String> classes = new HashSet<>();
         while (rs.next()) {
             classes.add(rs.getString("class"));
         }

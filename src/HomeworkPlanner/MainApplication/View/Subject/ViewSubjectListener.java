@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class ViewSubjectListener {
 
-    private Font titleFont = new Font("Times New Roman", Font.PLAIN, 40);
+    private final Font titleFont = new Font("Times New Roman", Font.PLAIN, 40);
 
     public ActionListener createSubjectListener(JButton button) {
 
