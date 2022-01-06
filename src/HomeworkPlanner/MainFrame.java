@@ -1,9 +1,11 @@
 package HomeworkPlanner;
 
+import HomeworkPlanner.MainApplication.Create.Assignment.AssignmentDetails;
 import HomeworkPlanner.Validation.LoginAndSignup;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  * This class handles the main frame when application is opened. It contains the "login" and "signup" buttons.
@@ -15,10 +17,11 @@ public class MainFrame {
     private Font subTitleFont = new Font("Arial", Font.PLAIN, 20);
     private LoginAndSignup loginAndSignup = new LoginAndSignup();
 
-    public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         MainFrame mainFrame = new MainFrame();
 
         mainFrame.openLoginPage();
+
     }
 
     private void openLoginPage() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
