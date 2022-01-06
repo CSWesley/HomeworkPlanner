@@ -3,6 +3,10 @@
 ![Mac OS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 
+## This project is most likely going to be abandoned as I move to Firestore with JS. I love you Java but my JS projects are becoming of more import. Is that correct?
+
+# Discord: Wesley_#0145
+
 # Homework Planner (Updated)
 
 Migrating Homework Planner. Will include SQL, more general options, better security, and more!
@@ -36,7 +40,9 @@ Answer
 ## Other
 
 If you have any questions, please contact me on Discord or by email. 
+
 Discord: Wesley_#0145
+
 Email: Booked1234512@gmail.com
 
 I will add more options and information at a future time.
