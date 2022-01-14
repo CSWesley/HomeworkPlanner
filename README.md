@@ -20,7 +20,7 @@ Thanks for asking!
 
 ## No Internet? That's fine!
 
-I will also be adding a no-internet option, where you will need to give the program time to migrate from SQL to your computer in files, and use a completely different system. This may take a few minutes depending on your computer and internet speed. You will need to confirm this choice with a random code sent to your email.
+I will also be adding a no-internet option, where you will need to give the program time to migrate from the database to your computer in files, and use a completely different system. This may take a few minutes depending on your computer and internet speed. You will need to confirm this choice with a random code sent to your email.
 
 ## FAQ's
 
